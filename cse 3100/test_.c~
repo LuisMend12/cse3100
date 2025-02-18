@@ -1,0 +1,12 @@
+#include <stdio.h>
+#include <string.h>
+
+
+int main() 
+{
+	printf("Hello World!\n");
+
+	write(STDOUT_FILEND, "Hello World!\n", sizeof("Hello World!\n"));
+
+	return 0;
+}
