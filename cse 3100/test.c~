@@ -1,0 +1,17 @@
+#include <stdio.h>
+
+int main()
+{	
+	int n, i;
+	printf("i = \n");
+	scanf("%d", i);	
+	
+	while(i>0)
+	{
+		n = i %10;
+		i /= 10;
+	}
+
+	printf("%d\n", n);
+	return 0;
+}

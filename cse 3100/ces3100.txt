@@ -1,0 +1,23 @@
+I can declare a funcitno as a varible, declare a function before first use if definition comes later
+Function prototype often plac
+
+
+Storage class to know for this class:
+auto - Automatic storage class, a variable in auto is set by default it is not explicityl specified. However, the scope of this function is limited with the particular block only.
+static - this will  keep the value. retains values across functions calls
+extern -  This refers to all global variables.
+register - This is stored in the cpu of our computer, while auto is stored in
+the memory storage of uor computer.
+
+Global variables - can be access by all functions.  
+
+Function call context - when a functoin is called
+
+THe return address is where the function was initially called from.
+
+Memory organization
+
+
+Executable code is positioned at the lower part of the memory, then on top of
+the executable code we have the static values, and static is on the top of th
+memory organization. And heap grows up until it reaches the stack

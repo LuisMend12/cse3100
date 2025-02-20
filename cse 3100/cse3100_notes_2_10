@@ -1,0 +1,2 @@
+Whenever a new function is called, a new stack frame is created with an
+addresss, the stack size can be modified. 

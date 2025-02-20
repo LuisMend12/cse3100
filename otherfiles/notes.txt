@@ -1,0 +1,41 @@
+A C pointers
+
+
+Linked list, enums, and function pointers
+
+sudo code for a node in c:
+
+typedef struct node
+{
+	struct node * next; this new node is pointed to the next node which is a struct pointer
+	
+
+}
+
+
+to create a node we have to use malloc()
+
+node * new_node(int v) {
+	node * p = malloc(sizeof(node));
+	assert(p != null);
+}
+
+Prepend: 
+
+
+Apppend: when we append we only change the head of the previous node so that the node before is now pointing to our new node.
+
+
+Enumeration types: 
+
+
+Const: pointers that are const can still receive the address of a variable even if it is constant.
+
+constant are useful when calling for addresses.
+
+function pointers, 
+
+
+qsort in c, does quick sort in the passsed data, generic data, raw memory. we need to include the size of the data type that we are passing. rewrite a linked list with double pointers.
+
+
