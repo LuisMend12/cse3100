@@ -109,7 +109,7 @@ node *delete_node(node *head, int v) {
   
     if (head==NULL) error_message(ERR_NODELETE);
       
-    if (head->next == v) {
+    if (head->next->v == v) {
 
         node *tempNextP;
 
@@ -140,13 +140,13 @@ node *reverse_list(node *head) {
 
     if (head==NULL || head->next == NULL) return head;
 
-    node *rest = reverse_list(head->next);
+    node *new_head = reverse_list(head->next);
 
     head->next->next = head;
 
     head->next = NULL;
 
-    return rest;
+    return new_head;
    
 
 }
