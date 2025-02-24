@@ -34,6 +34,6 @@ void print_node(node *p);
 void print_list_details(node *head);
 
 node *delete_node(node *head, int v);
-// node *reverse_list(node *head);
+node *reverse_list(node *head);
 
 #endif

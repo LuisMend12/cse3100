@@ -106,23 +106,25 @@ void print_list_details(node *head) {
 // functions that have not been implemented
 
 node *delete_node(node *head, int v) {
-  
-    if (head==NULL) error_message(ERR_NODELETE);
-      
-    if (head->next->v == v) {
 
-        node *tempNextP;
+  if (head == NULL) error_message(ERR_NODELETE);
 
-        tempNextP = head->next;
+  if (head->v == v) {
+    node* temp;
 
-        free(head);
+    temp = head->next;
 
-        return tempNextP;
-    }
+    free(head);
 
-    head->next = delete_node(head->next, v);
+    return temp;
+  }
 
-    return head;
+  head->next = delete_node(head->next, v);
+
+
+  return head;
+
+
 }
 
 /*
@@ -135,18 +137,25 @@ node *delete_node(node *head, int v) {
 node *reverse_list(node *head) {
   // TODO
 
+    
+    node *curr = head, *prev = NULL, *next;
 
-    error_message(ERR_NOREVERSE);
+    if (head == NULL) {
+      error_message(ERR_NOREVERSE);
+    }
 
-    if (head==NULL || head->next == NULL) return head;
+    while (curr != NULL) {
+        next = curr->next;
 
-    node *new_head = reverse_list(head->next);
+        curr->next = prev;
 
-    head->next->next = head;
+        prev = curr;
+        curr = next;
+    }
 
-    head->next = NULL;
+    head = prev;
 
-    return new_head;
+    return head;
    
 
 }
