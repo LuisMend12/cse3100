@@ -107,12 +107,12 @@ void print_list_details(node *head) {
 
 node *delete_node(node *head, int v) {
 
-  if (head == NULL) error_message(ERR_NODELETE);
-
+  if (head == NULL) {
+    error_message(ERR_NOTFOUND);
+    return NULL;
+  }
   if (head->v == v) {
-    node* temp;
-
-    temp = head->next;
+    node* temp = head->next;
 
     free(head);
 
@@ -123,7 +123,6 @@ node *delete_node(node *head, int v) {
 
 
   return head;
-
 
 }
 
