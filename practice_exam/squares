@@ -20,10 +20,12 @@ void sort_squares(int *arr, int n){
 
     for(int i = n - 1; i >= 0; i--){
         if(absolute(arr[left]) > absolute(arr[right])){
-            //fill code here
+            result[i] = arr[left] * arr[left];
+            left++;
         }
         else{
-            //fill code here
+            result[i] = arr[right] * arr[right];
+            right--;
         }
     }
     
@@ -32,7 +34,7 @@ void sort_squares(int *arr, int n){
         arr[i] = result[i];
     }
  
-    //fill code here
+    free(result);
 }
 
 int main(int argc, char *argv[]) {
