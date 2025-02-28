@@ -29,6 +29,7 @@ void insertAtBeginning(Node** head, int data) {
     *head=newNode;
 }
 
+
 void insertAtEnd(Node** head, int data) {
     Node* newNode = createNode(data);
 
@@ -42,6 +43,21 @@ void insertAtEnd(Node** head, int data) {
     temp->next=newNode;
     newNode->prev=temp;
 }
+
+
+
+// void insertAtpo(node* new, node* head, int pos) {
+//     node* curr = head;
+//     for (int i = 0; i < pos; i++) {
+//         curr = curr->new;
+
+//         new->next = curr->new;
+//         curr->next = new;
+//         return head;
+//     }
+// }
+
+
 
 void insertAtPosition(Node** head, int data, int position) {
     if (position < 1) {
