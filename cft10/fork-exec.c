@@ -49,13 +49,13 @@ int main(int argc, char *argv[])
 
 		//TODO:
 		//fill in the code below 
-        char * argv_list[] = {//fill in your code here}.
+        char * argv_list[] = {}
     
         // the execv() only return if error occured. 
         // The return value is -1
 		//TODO:
 		//fill in the code below 
-        execv(//fill your code here); 
+        execv(); 
         exit(-1); 
     } 
     else
