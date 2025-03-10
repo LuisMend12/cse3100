@@ -3,12 +3,12 @@
 #include <unistd.h>
 
 
-int main(void) {
+int main() {
 
     pid_t process_id;
     pid_t p_process_id;
 
-    process_id = getid();
+    process_id = getpid();
     p_process_id = getppid();
 
     printf("The process if: %d\n", process_id);

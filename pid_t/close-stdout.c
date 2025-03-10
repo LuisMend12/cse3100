@@ -16,6 +16,6 @@ int main(int argc, char **argv){
 
     v2 = fflush(stdout);
 
-    fprintf(stdferr, "printf() returned %d.\nfflush() returned %d\n", v1, v2);
+    fprintf(stderr, "printf() returned %d.\nfflush() returned %d\n", v1, v2);
     return 0;
 }
