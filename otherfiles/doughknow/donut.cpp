@@ -20,7 +20,7 @@ int main() {
         }
 
         for (int k = 0; k < 1761; ++k)  {
-            std::cout.put(k % 80 ? b[k] : '\n');
+            std::cout.put(k % 80 ? b[k] : 10);
         }
 
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
