@@ -49,13 +49,13 @@ int main(int argc, char *argv[])
 
 		//TODO:
 		//fill in the code below 
-        char * argv_list[] = {}
+        char * argv_list[] = {"./sum", argv[1], NULL};
     
         // the execv() only return if error occured. 
         // The return value is -1
 		//TODO:
 		//fill in the code below 
-        execv(); 
+        execv("./sum", argv_list); 
         exit(-1); 
     } 
     else
