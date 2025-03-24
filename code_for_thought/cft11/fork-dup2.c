@@ -54,6 +54,7 @@ int main(int argc, char *argv[])
 
 
 	}
+	wait(NULL);
 
 	printf("%s\n", argv[1]);
 	return 0;
