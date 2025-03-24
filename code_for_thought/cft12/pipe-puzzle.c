@@ -110,11 +110,13 @@ int main(int argc, char *argv[])
                 }
                 else if(cur + a[cur] >= 0 && cur + a[cur] <n)
                 {
-                    //Add your code here
-
-
+                    cur+=a[cur];
+                    b[moves]=cur;
+                    moves++;
+                    exit(0);
 
                 }
+                close(pd[0]);
             }
             else
             {
@@ -132,13 +134,19 @@ int main(int argc, char *argv[])
                 }
                 else if(cur - a[cur] >= 0 && cur - a[cur] <n)
                 {
-                    //Add your code here
+                    cur-=a[cur];
+                    b[moves]=cur;
+                    moves++;
+                    exit(0);
 
 
 
                 }
+                close(pd[0]);
             }
         }
+
+        wait(NULL);
         //It is crucial to close pd[1] here
         close(pd[1]);
         //The following return statement is crucial, why?
