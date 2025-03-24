@@ -35,11 +35,21 @@ int main(int argc, char *argv[])
 			printf("Cannot open the file\n");
 			return -1;
 		} 
-        char buffer[MAX_LINE];
-        strcpy(buffer, argv[1]);
+   
 		//TODO
 		//fill in the code below
+		dup2(fd, 1);
+		close(fd);
 
+		char buffer[MAX_LINE];
+        strcpy(buffer, argv[1]);
+
+		for (int i = 0; buffer[i]; i++) {
+			buffer[i] = toupper(buffer[i]);
+		}
+
+		printf("%s\n", buffer);  
+        exit(0);
 
 
 
