@@ -38,7 +38,7 @@ void write_solution(int b[], int moves, int pd)
     }
     strcat(buffer, "\n");
     //Add one line of code to write the buffer to the pipe pd
-
+    write(pd, buffer, strlen(buffer));
 }
 
 int read_solution(int pd, char buffer[])
@@ -110,13 +110,11 @@ int main(int argc, char *argv[])
                 }
                 else if(cur + a[cur] >= 0 && cur + a[cur] <n)
                 {
-                    cur+=a[cur];
-                    b[moves]=cur;
-                    moves++;
-                    exit(0);
-
+                    //Add your code here
+                    cur += a[cur];
+                    b[moves] = cur;
+                    ++moves;
                 }
-                close(pd[0]);
             }
             else
             {
@@ -134,19 +132,13 @@ int main(int argc, char *argv[])
                 }
                 else if(cur - a[cur] >= 0 && cur - a[cur] <n)
                 {
-                    cur-=a[cur];
-                    b[moves]=cur;
-                    moves++;
-                    exit(0);
-
-
-
+                    //Add your code here
+                    cur -= a[cur];
+                    b[moves] = cur;
+                    ++moves;
                 }
-                close(pd[0]);
             }
         }
-
-        wait(NULL);
         //It is crucial to close pd[1] here
         close(pd[1]);
         //The following return statement is crucial, why?
