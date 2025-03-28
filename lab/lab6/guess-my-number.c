@@ -122,10 +122,18 @@ void    child_main(int fdp[], int fdc[], int seed)
     close(fdc[0]);
 
 
+    int guess, result;
+
+    int max_val = gmn_get_max();
+
+    if (write(fdc[1], &max_val, sizeof(max_val)) == -1) die("Chlid: write() failed");
+
+    while (read(fdp[0], &guess, sizeof(guess)) > 0) { result = gmn_check(&gmn, guess); if (write(fdc[1], &result, sizeof(result)) == -1) die("Child: write() failed"); if (result == 0) { if (write(fdc[1], gmn.message, MSG_BUF_SIZE == -1)) die("Child: write() of final message failed"); break; } }
 
 
-    
 
+    close(fdp[0]);
+    close(fdc[1]);
     exit(EXIT_SUCCESS);
 }
 
@@ -183,19 +191,16 @@ int main(int argc, char *argv[])
     
     // parent continues
     
-    int min = 1;
-    int max;
-    int guess;
-    int result;
+    int min = 1, max, guess, result;
 
     // TODO
     //      close unused pipe file descriptor  - done
     //      get max from the child - done, i think
-    close(fdp[1]);
-    dup2(fdp[0], 0);
+    close(fdp[0]);
+    close(fdc[1]);
 
-    int max = gmn_get_max();
-    if (write(fdc[1], &max, sizeof(max)) == -1) die("write() to parent failed");
+    if (read(fdc[0], &max, sizeof(max)) <= 0) die("Parent: read() failed for max value");
+
 
 
     do { 
@@ -206,11 +211,9 @@ int main(int argc, char *argv[])
         //     send guess to the child - done, i think
         //     wait for the result from the child - done
 
-        while (read(fdp[0], &guess, sizeof(guess)) > 0) {result = gmn_check(&gmn, guess); if (write(fdc[1], &result, sizeof(result)) == -1) die ("write() failed"); }
-        
-        dup2(fdc[1], 1);
-        
-        wait(NULL);
+        if (write(fdp[1], &guess, sizeof(guess)) == -1) die("Parent: write() failed");
+
+        if (read(fdc[0], &result, sizeof(result)) <= 0) die("Parent: read() failed for result");
 
         if (result > 0)
             min = guess + 1;
@@ -225,14 +228,17 @@ int main(int argc, char *argv[])
     //      receive the final message and print it to stdout - done, i think
     //      close all pipe file descriptors - done
     //wait for the child process to finish
+
+    char final_msg[MSG_BUF_SIZE];
+    if (read(fdc[0], final_msg, MSG_BUF_SIZE) <= 0) die("Parent: read() failed for final message");
+
+    printf("%s", final_msg);
    
+
     close(fdp[1]);
-    dup2(fdp[0], 0);
-
-
     close(fdc[0]);
-    close(fdc[1]);
 
     wait(NULL);
+    
     return 0;
 }
