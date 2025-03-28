@@ -119,9 +119,10 @@ void    child_main(int fdp[], int fdc[], int seed)
     //  send the final message back (as a string) 
     //  close all pipe file descriptors
     close(fdp[1]);
-    close(fdc[1]);
-    close(fdp[0]);
-    close(fdp[1]);
+    close(fdc[0]);
+
+
+
 
     
 
@@ -190,8 +191,12 @@ int main(int argc, char *argv[])
     // TODO
     //      close unused pipe file descriptor  - done
     //      get max from the child - done, i think
-    close(fdc[0]);
-    dup2(fdc[1], 1);
+    close(fdp[1]);
+    dup2(fdp[0], 0);
+
+    int max = gmn_get_max();
+    if (write(fdc[1], &max, sizeof(max)) == -1) die("write() to parent failed");
+
 
     do { 
         guess = (min + max)/2;
@@ -200,6 +205,8 @@ int main(int argc, char *argv[])
         // TODO
         //     send guess to the child - done, i think
         //     wait for the result from the child - done
+
+        while (read(fdp[0], &guess, sizeof(guess)) > 0) {result = gmn_check(&gmn, guess); if (write(fdc[1], &result, sizeof(result)) == -1) die ("write() failed"); }
         
         dup2(fdc[1], 1);
         
@@ -219,13 +226,13 @@ int main(int argc, char *argv[])
     //      close all pipe file descriptors - done
     //wait for the child process to finish
    
-    close(fdc[1]);
-    dup2(fdc[0], 0);
+    close(fdp[1]);
+    dup2(fdp[0], 0);
 
 
     close(fdc[0]);
-    close(fdp[1]);
-    close(fdp[0]);
+    close(fdc[1]);
+
     wait(NULL);
     return 0;
 }
