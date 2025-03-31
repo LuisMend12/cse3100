@@ -122,16 +122,16 @@ void    child_main(int fdp[], int fdc[], int seed)
     close(fdc[0]);
 
 
-    int guess, result;
+    int max = gmn_get_max();
 
-    int max_val = gmn_get_max();
+    write(fdc[1], &max, sizeof(max));
 
-    if (write(fdc[1], &max_val, sizeof(max_val)) == -1) die("Chlid: write() failed");
+    int guess, result= -1;
 
-    while (read(fdp[0], &guess, sizeof(guess)) > 0) { result = gmn_check(&gmn, guess); if (write(fdc[1], &result, sizeof(result)) == -1) die("Child: write() failed"); if (result == 0) { if (write(fdc[1], gmn.message, MSG_BUF_SIZE == -1)) die("Child: write() of final message failed"); break; } }
+    while (result != 0) { read(fdp[0], &guess, sizeof(guess)); result = gmn_check(&gmn, guess); write(fdc[1], &result, sizeof(result));}
 
-
-
+    char* msg = gmn_get_message(&gmn);
+    write(fdc[1], msg, strlen(msg));
     close(fdp[0]);
     close(fdc[1]);
     exit(EXIT_SUCCESS);
@@ -199,8 +199,7 @@ int main(int argc, char *argv[])
     close(fdp[0]);
     close(fdc[1]);
 
-    if (read(fdc[0], &max, sizeof(max)) <= 0) die("Parent: read() failed for max value");
-
+    read(fdc[0], &max, sizeof(max));
 
 
     do { 
@@ -228,13 +227,8 @@ int main(int argc, char *argv[])
     //      receive the final message and print it to stdout - done, i think
     //      close all pipe file descriptors - done
     //wait for the child process to finish
-
-    char final_msg[MSG_BUF_SIZE];
-    if (read(fdc[0], final_msg, MSG_BUF_SIZE) <= 0) die("Parent: read() failed for final message");
-
-    printf("%s", final_msg);
-   
-
+    char c = -1;
+    while (c != '\n') { read(fdc[0], &c, sizeof(c)); putchar(c); }
     close(fdp[1]);
     close(fdc[0]);
 
