@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
 
   pid_t pid = fork();
   if (pid == 0) {
-    dup2(pd[1], 1);
+    dutp2(pd[1], 1);
     close(pd[1]);
     close(pd[0]);
     char *argv_list[] = {"cat", "pipe2.c", NULL};
