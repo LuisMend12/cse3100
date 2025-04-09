@@ -13,7 +13,7 @@ int main() {
         {4, 5, 2, 6, 5}
     };
 
-    // Start from the second last row and move upwards
+    
     for (int row = triangle.size() - 2; row >= 0; row--) {
         for (int col = 0; col < triangle[row].size(); col++) {
             triangle[row][col] += max(triangle[row + 1][col], triangle[row + 1][col + 1]);
